@@ -1,7 +1,10 @@
 const functions = require("firebase-functions");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const auth = require("./utils/auth");
+
+app.use(cors());
 
 const { signup, login } = require("./handlers/users");
 const {
