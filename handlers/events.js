@@ -17,6 +17,7 @@ exports.getAllEvents = (req, res) => {
           userImage: doc.data().userImage,
           dateTime: doc.data().dateTime,
           address: doc.data().address,
+          startingLocation: doc.data().startingLocation,
         });
       });
       return res.json(events);
@@ -32,14 +33,18 @@ exports.postNewEvent = (req, res) => {
     return res.status(400).json({ body: "Must not be empty" });
   }
   if (req.body.dateTime.trim() === "") {
-    return res.status(400).json({ body: "Must not be empty" });
+    return res.status(400).json({ dateTime: "Must not be empty" });
   }
   if (req.body.address.trim() === "") {
-    return res.status(400).json({ body: "Must not be empty" });
+    return res.status(400).json({ address: "Must not be empty" });
+  }
+  if (req.body.startingLocation.trim() === "") {
+    return res.status(400).json({ startingLocation: "Must not be empty" });
   }
 
   const newEvent = {
     body: req.body.body,
+    startingLocation: req.body.startingLocation,
     username: req.user.username,
     userImage: req.user.imageUrl,
     createdAt: new Date().toISOString(),

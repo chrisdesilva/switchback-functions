@@ -6,7 +6,13 @@ const auth = require("./utils/auth");
 
 app.use(cors());
 
-const { signup, login } = require("./handlers/users");
+const {
+  signup,
+  login,
+  addUserProfile,
+  getUserDetails,
+  getAuthenticatedUser,
+} = require("./handlers/users");
 const {
   postNewEvent,
   getAllEvents,
@@ -17,6 +23,9 @@ const {
 // user routes
 app.post("/signup", signup);
 app.post("/login", login);
+app.post("/user", auth, addUserProfile);
+app.get("/user/:username", getUserDetails);
+app.get("/user", auth, getAuthenticatedUser);
 
 // event routes
 app.get("/events", getAllEvents);

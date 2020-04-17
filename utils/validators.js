@@ -53,16 +53,21 @@ exports.validateLoginData = (data) => {
 };
 
 exports.reduceUserDetails = (data) => {
+  // validation for user profile details
   let userDetails = {};
+  let errors = {};
 
   if (!isEmpty(data.bio.trim())) userDetails.bio = data.bio;
-  if (!isEmpty(data.website.trim())) {
-    // https://website.com
-    if (data.website.trim().substring(0, 4) !== "http") {
-      userDetails.website = `http://${data.website.trim()}`;
-    } else userDetails.website = data.website;
+  if (isEmpty(data.zipCode)) {
+    errors.zipCode = "Must not be empty";
+  } else if (!isUSZipCode(data.zipCode)) {
+    errors.zipCode = "Must be valid US zip code";
+  } else {
+    userDetails.zipCode = data.zipCode;
   }
-  if (!isEmpty(data.location.trim())) userDetails.location = data.location;
 
-  return userDetails;
+  return {
+    errors,
+    userDetails,
+  };
 };

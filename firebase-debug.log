@@ -1,0 +1,37 @@
+[debug] [2020-04-17T13:03:06.408Z] ----------------------------------------------------------------------
+[debug] [2020-04-17T13:03:06.410Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Chris\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2020-04-17T13:03:06.410Z] CLI Version:   8.0.2
+[debug] [2020-04-17T13:03:06.410Z] Platform:      win32
+[debug] [2020-04-17T13:03:06.410Z] Node Version:  v12.11.1
+[debug] [2020-04-17T13:03:06.411Z] Time:          Fri Apr 17 2020 08:03:06 GMT-0500 (Central Daylight Time)
+[debug] [2020-04-17T13:03:06.411Z] ----------------------------------------------------------------------
+[debug] [2020-04-17T13:03:06.411Z] 
+[debug] [2020-04-17T13:03:06.416Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-17T13:03:06.417Z] > authorizing via signed-in user
+[debug] [2020-04-17T13:03:06.417Z] [iam] checking project switchback-d1be7 for permissions ["firebase.projects.get"]
+[debug] [2020-04-17T13:03:06.419Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/switchback-d1be7:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-04-17T13:03:06.681Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 17 Apr 2020 13:03:08 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=118","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[warn] !  Your requested "node" version "8" doesn't match your global version "12"
+[info] +  functions: functions emulator started at http://localhost:5000
+[debug] [2020-04-17T13:03:07.695Z] [functions] Watching "D:\Web_Projects\react-projects\switchback\functions" for Cloud Functions...
+[debug] [2020-04-17T13:03:07.704Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-04-17T13:03:07.704Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-04-17T13:03:07.704Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-04-17T13:03:07.704Z] DEBUG: [worker-~diagnostic~-ac99a8ff-3096-4024-ae79-7692871385f3]: Assigning socketPath: \\?\pipe\D:\Web_Projects\react-projects\switchback\functions\21484
+[debug] [2020-04-17T13:03:07.705Z] DEBUG: [worker-~diagnostic~-ac99a8ff-3096-4024-ae79-7692871385f3]: BUSY
+[debug] [2020-04-17T13:03:07.962Z] DEBUG: [runtime-status] [21484] Functions runtime initialized. {"cwd":"D:\\Web_Projects\\react-projects\\switchback\\functions","node_version":"12.11.1"}
+[debug] [2020-04-17T13:03:07.962Z] DEBUG: [runtime-status] [21484] Disabled runtime features: undefined
+[debug] [2020-04-17T13:03:07.964Z] DEBUG: [runtime-status] [21484] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"D:\\Web_Projects\\react-projects\\switchback\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-04-17T13:03:07.965Z] DEBUG: [runtime-status] [21484] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"D:\\Web_Projects\\react-projects\\switchback\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-04-17T13:03:07.966Z] DEBUG: [runtime-status] [21484] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2020-04-17T13:03:07.992Z] DEBUG: [runtime-status] [21484] Checked functions.config() {"config":{}}
+[debug] [2020-04-17T13:03:07.992Z] DEBUG: [runtime-status] [21484] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"D:\\Web_Projects\\react-projects\\switchback\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-04-17T13:03:07.993Z] DEBUG: [runtime-status] [21484] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"D:\\Web_Projects\\react-projects\\switchback\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-04-17T13:03:07.993Z] DEBUG: [runtime-status] [21484] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"D:\\Web_Projects\\react-projects\\switchback\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-04-17T13:03:07.994Z] DEBUG: [runtime-status] [21484] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.10.0","resolution":"D:\\Web_Projects\\react-projects\\switchback\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2020-04-17T13:03:08.061Z] DEBUG: [runtime-status] [21484] initializeApp(DEFAULT) {"databaseURL":"https://switchback-d1be7.firebaseio.com","storageBucket":"switchback-d1be7.appspot.com","projectId":"switchback-d1be7"}
+[warn] !  functions: The Cloud Firestore emulator is not running, so calls to Firestore will affect production.
+[debug] [2020-04-17T13:03:08.328Z] [functions[api]] http function initialized (http://localhost:5000/switchback-d1be7/us-central1/api).
+[info] i  functions: Loaded functions: api
+[debug] [2020-04-17T13:03:08.382Z] DEBUG: [worker-~diagnostic~-ac99a8ff-3096-4024-ae79-7692871385f3]: IDLE
