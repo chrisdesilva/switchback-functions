@@ -4,6 +4,12 @@ const isEmail = (email) => {
   else return false;
 };
 
+const isUSZipCode = (zip) => {
+  const regEx = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+  if (zip.match(regEx)) return true;
+  else return false;
+};
+
 const isEmpty = (string) => {
   if (string.trim() === "") return true;
   else return false;
@@ -21,7 +27,12 @@ exports.validateSignupData = (data) => {
   if (isEmpty(data.password)) errors.password = "Must not be empty";
   if (data.password !== data.confirmPassword)
     errors.confirmPassword = "Passwords must match";
-  if (isEmpty(data.handle)) errors.handle = "Must not be empty";
+  if (isEmpty(data.username)) errors.username = "Must not be empty";
+  if (isEmpty(data.zipCode)) {
+    errors.zipCode = "Must not be empty";
+  } else if (!isUSZipCode(data.zipCode)) {
+    errors.zipCode = "Must be valid US zip code";
+  }
 
   return {
     errors,

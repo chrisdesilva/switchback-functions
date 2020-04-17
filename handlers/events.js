@@ -10,7 +10,7 @@ exports.getAllEvents = (req, res) => {
         events.push({
           eventId: doc.id,
           body: doc.data().body,
-          userHandle: doc.data().userHandle,
+          username: doc.data().username,
           createdAt: doc.data().createdAt,
           commentCount: doc.data().commentCount,
           likeCount: doc.data().likeCount,
@@ -40,7 +40,7 @@ exports.postNewEvent = (req, res) => {
 
   const newEvent = {
     body: req.body.body,
-    userHandle: req.user.handle,
+    username: req.user.username,
     userImage: req.user.imageUrl,
     createdAt: new Date().toISOString(),
     likeCount: 0,
@@ -99,7 +99,7 @@ exports.commentOnEvent = (req, res) => {
     body: req.body.body,
     createdAt: new Date().toISOString(),
     eventId: req.params.eventId,
-    userHandle: req.user.handle,
+    username: req.user.username,
     userImage: req.user.imageUrl,
   };
 
