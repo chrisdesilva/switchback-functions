@@ -127,3 +127,26 @@ exports.commentOnEvent = (req, res) => {
       res.status(500).json({ error: "Something went wrong" });
     });
 };
+
+exports.deleteEvent = (req, res) => {
+  const event = db.doc(`/events/${req.params.eventId}`);
+  event
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "Event not found" });
+      }
+      if (doc.data().username !== req.user.username) {
+        return res.status(403).json({ error: "Unauthorized" });
+      } else {
+        return event.delete();
+      }
+    })
+    .then(() => {
+      res.json({ message: "Event deleted successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};

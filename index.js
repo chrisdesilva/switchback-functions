@@ -18,6 +18,7 @@ const {
   getAllEvents,
   getEvent,
   commentOnEvent,
+  deleteEvent,
 } = require("./handlers/events");
 
 // user routes
@@ -32,5 +33,6 @@ app.get("/events", getAllEvents);
 app.post("/event", auth, postNewEvent);
 app.get("/event/:eventId", getEvent);
 app.post("/event/:eventId/comment", auth, commentOnEvent);
+app.delete("/event/:eventId", auth, deleteEvent);
 
 exports.api = functions.https.onRequest(app);
