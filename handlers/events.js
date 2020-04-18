@@ -11,6 +11,7 @@ exports.getAllEvents = (req, res) => {
           eventId: doc.id,
           body: doc.data().body,
           username: doc.data().username,
+          userId: doc.data().userId,
           createdAt: doc.data().createdAt,
           commentCount: doc.data().commentCount,
           likeCount: doc.data().likeCount,
@@ -46,6 +47,7 @@ exports.postNewEvent = (req, res) => {
     body: req.body.body,
     startingLocation: req.body.startingLocation,
     username: req.user.username,
+    userId: req.user.uid,
     userImage: req.user.imageUrl,
     createdAt: new Date().toISOString(),
     likeCount: 0,
@@ -104,6 +106,7 @@ exports.commentOnEvent = (req, res) => {
     body: req.body.body,
     createdAt: new Date().toISOString(),
     eventId: req.params.eventId,
+    userId: req.user.uid,
     username: req.user.username,
     userImage: req.user.imageUrl,
   };
