@@ -153,3 +153,26 @@ exports.deleteEvent = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+exports.deleteComment = (req, res) => {
+  const comment = db.doc(`/comments/${req.params.commentId}`);
+  comment
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "Comment not found" });
+      }
+      if (doc.data().username !== req.user.username) {
+        return res.status(403).json({ error: "Unauthorized" });
+      } else {
+        return comment.delete();
+      }
+    })
+    .then(() => {
+      res.json({ message: "Comment deleted successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
