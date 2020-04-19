@@ -1,4 +1,5 @@
 const { db } = require("../utils/admin");
+const { uuid } = require("uuidv4");
 
 exports.getAllEvents = (req, res) => {
   db.collection("events")
@@ -109,6 +110,7 @@ exports.commentOnEvent = (req, res) => {
     userId: req.user.uid,
     username: req.user.username,
     userImage: req.user.imageUrl,
+    commentId: uuid(),
   };
 
   db.doc(`/events/${req.params.eventId}`)
@@ -122,8 +124,8 @@ exports.commentOnEvent = (req, res) => {
     .then(() => {
       return db.collection("comments").add(newComment);
     })
-    .then((ref) => {
-      res.json({ ...newComment, commentId: ref.id });
+    .then(() => {
+      res.json(newComment);
     })
     .catch((err) => {
       console.log(err);
