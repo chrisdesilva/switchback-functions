@@ -122,8 +122,8 @@ exports.commentOnEvent = (req, res) => {
     .then(() => {
       return db.collection("comments").add(newComment);
     })
-    .then(() => {
-      res.json(newComment);
+    .then((ref) => {
+      res.json({ ...newComment, commentId: ref.id });
     })
     .catch((err) => {
       console.log(err);
