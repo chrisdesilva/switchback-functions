@@ -1,6 +1,8 @@
 const { db } = require("../utils/admin");
 const { uuid } = require("uuidv4");
 
+const { validateEventData } = require("../utils/validators");
+
 exports.getAllEvents = (req, res) => {
   db.collection("events")
     .orderBy("dateTime", "desc")
@@ -31,19 +33,6 @@ exports.getAllEvents = (req, res) => {
 };
 
 exports.postNewEvent = (req, res) => {
-  if (req.body.body.trim() === "") {
-    return res.status(400).json({ body: "Must not be empty" });
-  }
-  if (req.body.dateTime.trim() === "") {
-    return res.status(400).json({ dateTime: "Must not be empty" });
-  }
-  if (req.body.address.trim() === "") {
-    return res.status(400).json({ address: "Must not be empty" });
-  }
-  if (req.body.startingLocation.trim() === "") {
-    return res.status(400).json({ startingLocation: "Must not be empty" });
-  }
-
   const newEvent = {
     body: req.body.body,
     startingLocation: req.body.startingLocation,
@@ -56,6 +45,10 @@ exports.postNewEvent = (req, res) => {
     dateTime: req.body.dateTime,
     address: req.body.address,
   };
+
+  const { valid, errors } = validateEventData(newEvent);
+
+  if (!valid) return res.status(400).json(errors);
 
   db.collection("events")
     .add(newEvent)

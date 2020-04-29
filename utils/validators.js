@@ -15,6 +15,21 @@ const isEmpty = (string) => {
   else return false;
 };
 
+exports.validateEventData = (data) => {
+  let errors = {};
+
+  if (isEmpty(data.body)) errors.body = "Must not be empty";
+  if (isEmpty(data.dateTime)) errors.dateTime = "Must not be empty";
+  if (isEmpty(data.address)) errors.address = "Must not be empty";
+  if (isEmpty(data.startingLocation))
+    errors.startingLocation = "Must not be empty";
+
+  return {
+    errors,
+    valid: Object.keys(errors).length === 0 ? true : false,
+  };
+};
+
 exports.validateSignupData = (data) => {
   let errors = {};
 
