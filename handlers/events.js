@@ -154,6 +154,7 @@ exports.deleteEvent = (req, res) => {
 
 exports.deleteComment = (req, res) => {
   const comment = db.doc(`/comments/${req.params.commentId}`);
+  let commentData = {};
   comment
     .get()
     .then((doc) => {
@@ -162,9 +163,18 @@ exports.deleteComment = (req, res) => {
       }
       if (doc.data().username !== req.user.username) {
         return res.status(403).json({ error: "Unauthorized" });
-      } else {
-        return comment.delete();
       }
+      commentData = doc.data();
+      comment.delete();
+      return commentData;
+    })
+    .then((comment) => {
+      const event = db.doc(`/events/${comment.eventId}`);
+      return event
+        .get()
+        .then((doc) =>
+          doc.ref.update({ commentCount: doc.data().commentCount - 1 })
+        );
     })
     .then(() => {
       res.json({ message: "Comment deleted successfully" });
