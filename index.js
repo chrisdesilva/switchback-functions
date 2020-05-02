@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const auth = require("./utils/auth");
+const { db } = require("./utils/admin");
 
 app.use(cors());
 
@@ -45,15 +46,15 @@ exports.onProfilePictureChange = functions.firestore
   .document("/users/{userId}")
   .onUpdate((change) => {
     if (change.before.data().imageUrl !== change.after.data().imageUrl) {
-      const batch = db.batch();
+      let batch = db.batch();
       return db
-        .collection("events")
+        .collection("comments")
         .where("username", "==", change.before.data().username)
         .get()
         .then((data) => {
           data.forEach((doc) => {
-            const event = db.doc(`events/${doc.id}`);
-            batch.update(event, { userImage: change.after.data().imageUrl });
+            const comment = db.doc(`/comments/${doc.id}`);
+            batch.update(comment, { userImage: change.after.data().imageUrl });
           });
           return batch.commit();
         });
