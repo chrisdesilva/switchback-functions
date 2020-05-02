@@ -40,3 +40,22 @@ app.delete("/event/:eventId", auth, deleteEvent);
 app.delete("/comment/:commentId", auth, deleteComment);
 
 exports.api = functions.https.onRequest(app);
+
+exports.onProfilePictureChange = functions.firestore
+  .document("users/{userId}")
+  .onUpdate((change) => {
+    if (change.before.data().imageUrl !== change.after.data().imageUrl) {
+      const batch = db.batch();
+      return db
+        .collection("events")
+        .where("username", "==", change.before.data().username)
+        .get()
+        .then((data) => {
+          data.forEach((doc) => {
+            const event = db.doc(`events/${doc.id}`);
+            batch.update(event, { userImage: change.after.data().imageUrl });
+          });
+          return batch.commit();
+        });
+    } else return true;
+  });
