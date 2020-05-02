@@ -43,11 +43,6 @@ exports.validateSignupData = (data) => {
   if (data.password !== data.confirmPassword)
     errors.confirmPassword = "Passwords must match";
   if (isEmpty(data.username)) errors.username = "Must not be empty";
-  if (isEmpty(data.zipCode)) {
-    errors.zipCode = "Must not be empty";
-  } else if (!isUSZipCode(data.zipCode)) {
-    errors.zipCode = "Must be valid US zip code";
-  }
 
   return {
     errors,
