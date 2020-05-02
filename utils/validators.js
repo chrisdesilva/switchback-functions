@@ -68,9 +68,7 @@ exports.reduceUserDetails = (data) => {
   let errors = {};
 
   if (!isEmpty(data.bio.trim())) userDetails.bio = data.bio;
-  if (isEmpty(data.zipCode)) {
-    errors.zipCode = "Must not be empty";
-  } else if (!isUSZipCode(data.zipCode)) {
+  if (!isUSZipCode(data.zipCode)) {
     errors.zipCode = "Must be valid US zip code";
   } else {
     userDetails.zipCode = data.zipCode;

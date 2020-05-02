@@ -12,6 +12,7 @@ const {
   addUserProfile,
   getUserDetails,
   getAuthenticatedUser,
+  uploadProfilePicture,
 } = require("./handlers/users");
 const {
   postNewEvent,
@@ -28,6 +29,7 @@ app.post("/login", login);
 app.post("/user", auth, addUserProfile);
 app.get("/user/:username", getUserDetails);
 app.get("/user", auth, getAuthenticatedUser);
+app.post("/user/image", auth, uploadProfilePicture);
 
 // event routes
 app.get("/events", getAllEvents);

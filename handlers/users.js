@@ -1,5 +1,6 @@
 const { admin, db } = require("../utils/admin");
 const config = require("../utils/config");
+const { uuid } = require("uuidv4");
 const firebase = require("firebase");
 firebase.initializeApp(config);
 
@@ -199,4 +200,59 @@ exports.getAuthenticatedUser = (req, res) => {
       console.error(err);
       return res.status(500).json({ error: err.code });
     });
+};
+
+// update user profile pic from default
+exports.uploadProfilePicture = (req, res) => {
+  const BusBoy = require("busboy");
+  const path = require("path");
+  const os = require("os");
+  const fs = require("fs");
+
+  const busboy = new BusBoy({ headers: req.headers });
+
+  let image = {};
+  let imageFileName;
+  let generatedToken = uuid();
+
+  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+    if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
+      return res
+        .status(400)
+        .json({ error: "Invalid file type. Please upload a jpg or png file." });
+    }
+    const imageExtension = filename.split(".")[filename.split(".").length - 1];
+    imageFileName = `${Math.round(
+      Math.random() * 1000000000
+    ).toString()}.${imageExtension}`;
+    const filepath = path.join(os.tmpdir(), imageFileName);
+    image = { filepath, mimetype };
+    file.pipe(fs.createWriteStream(filepath));
+  });
+  busboy.on("finish", () => {
+    admin
+      .storage()
+      .bucket()
+      .upload(image.filepath, {
+        resumable: false,
+        metadata: {
+          metadata: {
+            contentType: image.mimetype,
+            firebaseStorageDownloadTokens: generatedToken,
+          },
+        },
+      })
+      .then(() => {
+        const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media&token=${generatedToken}`;
+        return db.doc(`/users/${req.user.username}`).update({ imageUrl });
+      })
+      .then(() => {
+        return res.json({ message: "image uploaded successfully" });
+      })
+      .catch((err) => {
+        console.error(err);
+        return res.status(500).json({ error: "something went wrong" });
+      });
+  });
+  busboy.end(req.rawBody);
 };
