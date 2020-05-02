@@ -42,7 +42,7 @@ app.delete("/comment/:commentId", auth, deleteComment);
 exports.api = functions.https.onRequest(app);
 
 exports.onProfilePictureChange = functions.firestore
-  .document("users/{userId}")
+  .document("/users/{userId}")
   .onUpdate((change) => {
     if (change.before.data().imageUrl !== change.after.data().imageUrl) {
       const batch = db.batch();
